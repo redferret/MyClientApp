@@ -32,7 +32,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
         TextView title = new TextView(this);
         title.setText(movieTitle.getText());
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
         title.setClickable(true);
@@ -84,7 +84,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case 0:
             default:
-                typeFace = Typeface.SERIF;
+                typeFace = Typeface.DEFAULT;
         }
 
         selectedTitle.setTextColor(fontColor);
