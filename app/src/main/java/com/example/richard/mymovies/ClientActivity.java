@@ -92,6 +92,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
         if (intent == null) {
             return false;
         }
+        intent.setFlags(0);
         startActivityForResult(intent, 0);
         return true;
     }
