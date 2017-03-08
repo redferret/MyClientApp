@@ -22,6 +22,7 @@ import static com.example.richard.mymovies.R.color.Black;
 public class ClientActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView selectedTitle;
+    public static final int GET_FONT_REQUEST = 0;
 
     public void addTitleTextView(View view){
 
@@ -53,37 +54,42 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras();
-                int fontStyle = extras.getInt("FontStyle");
-                int fontSize = extras.getInt("FontSize");
-                int fontType = extras.getInt("FontTypeface");
-                int fontColor = extras.getInt("FontColor");
-
-                Typeface typeFace;
-
-                switch (fontType){
-                    case 1:
-                        typeFace = Typeface.MONOSPACE;
-                        break;
-                    case 2:
-                        typeFace = Typeface.SERIF;
-                        break;
-                    case 3:
-                        typeFace = Typeface.SANS_SERIF;
-                        break;
-                    case 0:
-                    default:
-                        typeFace = Typeface.SERIF;
+        switch(requestCode){
+            case GET_FONT_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    setTitleFont(data);
                 }
-
-                selectedTitle.setTextColor(fontColor);
-                selectedTitle.setTextSize(fontSize);
-                selectedTitle.setTypeface(typeFace, fontStyle);
-            }
+                break;
         }
+    }
+
+    private void setTitleFont(Intent data){
+        Bundle extras = data.getExtras();
+        int fontStyle = extras.getInt("FontStyle");
+        int fontSize = extras.getInt("FontSize");
+        int fontType = extras.getInt("FontTypeface");
+        int fontColor = extras.getInt("FontColor");
+
+        Typeface typeFace;
+
+        switch (fontType){
+            case 1:
+                typeFace = Typeface.MONOSPACE;
+                break;
+            case 2:
+                typeFace = Typeface.SERIF;
+                break;
+            case 3:
+                typeFace = Typeface.SANS_SERIF;
+                break;
+            case 0:
+            default:
+                typeFace = Typeface.SERIF;
+        }
+
+        selectedTitle.setTextColor(fontColor);
+        selectedTitle.setTextSize(fontSize);
+        selectedTitle.setTypeface(typeFace, fontStyle);
     }
 
     public boolean startApp(String packageName) {
@@ -92,8 +98,8 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
         if (intent == null) {
             return false;
         }
-        intent.setFlags(0);
-        startActivityForResult(intent, 0);
+        intent.setFlags(0);// Unusual Fix
+        startActivityForResult(intent, GET_FONT_REQUEST);
         return true;
     }
 
